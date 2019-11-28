@@ -21,19 +21,19 @@ class AppHeader extends Component {
         let menuItems;
         if (this.props.currentUser) {
             menuItems = [
-                <div>
+                <div key="0">
                     <Link to="/">Home</Link>
                 </div>,
-                <div>
+                <div key="1">
                     <Link to="/game/list">List</Link>
                 </div>
             ];
         } else {
             menuItems = [
-                <div>
+                <div key="0">
                     <Link to="/login">Login</Link>
                 </div>,
-                <div>
+                <div key="1">
                     <Link to="/signup">Signup</Link>
                 </div>
             ];

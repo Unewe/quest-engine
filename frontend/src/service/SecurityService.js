@@ -25,7 +25,7 @@ const request = (options) => {
 
 export function login(loginRequest) {
     return request({
-        url: API_BASE_URL + "/auth/signin",
+        url: API_BASE_URL + "/api/auth/signin",
         method: 'POST',
         body: JSON.stringify(loginRequest)
     });
@@ -33,7 +33,7 @@ export function login(loginRequest) {
 
 export function signup(signupRequest) {
     return request({
-        url: API_BASE_URL + "/auth/signup",
+        url: API_BASE_URL + "/api/auth/signup",
         method: 'POST',
         body: JSON.stringify(signupRequest)
     });
