@@ -1,0 +1,18 @@
+.app-header {
+    background-color: dimgray;
+    height: 50px;
+}
+
+.app-header .h-item  span,
+.app-header a {
+    color: azure;
+    text-decoration: none;
+    transition: text-shadow .1s;
+    cursor: pointer;
+    line-height: 50px;
+}
+
+.app-header .h-item span:hover,
+.app-header a:hover {
+    text-shadow: 2px 2px 4px black, 0 0 2em azure;
+}

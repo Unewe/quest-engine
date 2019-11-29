@@ -10,7 +10,7 @@ class Login extends Component {
             <div className="login-container">
                 <h1 className="page-title">Login</h1>
                 <div className="login-content">
-                    <LoginForm>Login needed</LoginForm>
+                    <LoginForm onLogin={this.props.onLogin} />
                 </div>
             </div>
         );
@@ -23,17 +23,14 @@ class LoginForm extends Component {
         this.state = {
             usernameOrEmail: '',
             password: ''
-        }
+        };
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
     handleSubmit(event) {
         event.preventDefault();
-        console.log(this.state)
-
         login(this.state)
             .then(response => {
-                console.log(response)
                 localStorage.setItem(ACCESS_TOKEN, response.accessToken);
                 this.props.onLogin();
             }).catch(error => {

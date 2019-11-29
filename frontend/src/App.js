@@ -10,6 +10,7 @@ import { ACCESS_TOKEN } from '../src/constant';
 import AppHeader from '../src/component/header/AppHeader'
 import Login from "./component/security/login/Login";
 import Signup from "./component/security/signup/Signup";
+import  'bootstrap-4-grid';
 
 class App extends Component {
   constructor(props) {
@@ -63,8 +64,18 @@ class App extends Component {
   }
 
   render() {
+    let content;
     if(this.state.isLoading) {
-      return <div><h1>Loading</h1></div>
+      content = <div><h1>Loading</h1></div>
+    } else {
+      content =
+          <div className="container">
+            <Switch>
+              <Route exact path="/" render={(props) => <div>Welcome</div>} />
+              <Route path="/login" render={(props) => <Login onLogin={this.handleLogin} {...props} />} />
+              <Route path="/signup" component={Signup} />
+            </Switch>
+          </div>
     }
     return (
         <div className="app-container">
@@ -73,15 +84,7 @@ class App extends Component {
                      onLogout={this.handleLogout} />
 
           <div className="app-content">
-            <div className="container">
-              <Switch>
-                <Route exact path="/" render={(props) => <div>Welcome</div>}></Route>
-                <Route path="/login" render={(props) => <Login onLogin={this.handleLogin} {...props} />}></Route>
-                <Route path="/signup" component={Signup}></Route>
-
-                {/*<Route component={NotFound}></Route>*/}
-              </Switch>
-            </div>
+            {content}
           </div>
         </div>
     );
