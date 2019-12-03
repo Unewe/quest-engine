@@ -11,6 +11,9 @@ import AppHeader from '../src/component/header/AppHeader'
 import Login from "./component/security/login/Login";
 import Signup from "./component/security/signup/Signup";
 import  'bootstrap-4-grid';
+import Home from "./component/home/Home";
+import NewGame from "./component/game/new/NewGame";
+import PrivateRoute from "./service/PrivateRoute";
 
 class App extends Component {
   constructor(props) {
@@ -26,9 +29,10 @@ class App extends Component {
   }
 
   loadCurrentUser() {
-    this.setState({
-      isLoading: true
-    });
+    //Когда будет добавлена загрузка
+    // this.setState({
+    //   isLoading: true
+    // });
     getCurrentUser()
         .then(response => {
           this.setState({
@@ -71,9 +75,10 @@ class App extends Component {
       content =
           <div className="container">
             <Switch>
-              <Route exact path="/" render={(props) => <div>Welcome</div>} />
+              <Route exact path="/" render={(props) => <Home />} />
               <Route path="/login" render={(props) => <Login onLogin={this.handleLogin} {...props} />} />
               <Route path="/signup" component={Signup} />
+              <PrivateRoute authenticated={this.state.isAuthenticated}  path="/new-game" component={NewGame}/>
             </Switch>
           </div>
     }

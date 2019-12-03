@@ -8,10 +8,7 @@ class Login extends Component {
     render() {
         return (
             <div className="login-container">
-                <h1 className="page-title">Login</h1>
-                <div className="login-content">
-                    <LoginForm onLogin={this.props.onLogin} />
-                </div>
+                <LoginForm onLogin={this.props.onLogin} />
             </div>
         );
     }
@@ -53,21 +50,40 @@ class LoginForm extends Component {
 
         return (
             <div>
-                <form className="demoForm" onSubmit={this.handleSubmit}>
-                    <h2>Sign up</h2>
-                    <div className="form-group">
-                        <label htmlFor="email">Email address</label>
-                        <input type="text" className="form-control"
-                               name="usernameOrEmail" onChange={this.handleUserInput}/>
+                <form onSubmit={this.handleSubmit}>
+                    <h1>Авторизация</h1>
+                    <div className="un-form-group">
+                        <div className="container p-1">
+                            <div className="row m-2">
+                                <div className="col-5 pt-2">
+                                    <label htmlFor="email">Почта / Логин</label>
+                                </div>
+                                <div className="col-7">
+                                    <input type="text" className="form-control"
+                                           name="usernameOrEmail" onChange={this.handleUserInput}/>
+                                </div>
+                            </div>
+                            <div className="row m-2">
+                                <div className="col-5  pt-2">
+                                    <label htmlFor="password">Пароль</label>
+                                </div>
+                                <div className="col-7">
+                                    <input type="password" className="form-control"
+                                           name="password" onChange={this.handleUserInput}/>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div className="form-group">
-                        <label htmlFor="password">Password</label>
-                        <input type="password" className="form-control"
-                               name="password" onChange={this.handleUserInput}/>
+                    <div className="container p-1">
+                        <div className="row m-2">
+                            <div className="col-7 offset-5">
+                                <button type="submit" className="un-button">
+                                    Войти
+                                </button>
+                            </div>
+                        </div>
                     </div>
-                    <button type="submit" className="btn btn-primary">
-                        Sign up
-                    </button>
+
                 </form>
             </div>
         );

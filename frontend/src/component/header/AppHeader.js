@@ -42,10 +42,10 @@ class AppHeader extends Component {
             <div className="app-header">
                 <div className="container-fluid">
                     <div className="row">
-                        <div className="col-2">
+                        <div className="col-3 text-center">
                             <Link to="/">Quest-engine</Link>
                         </div>
-                        <div className="col-8 d-flex">
+                        <div className="col-7 d-flex">
                             {menuItems}
                         </div>
                         <div className="col-2 text-center h-item">
