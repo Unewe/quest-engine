@@ -78,7 +78,8 @@ class App extends Component {
               <Route exact path="/" render={(props) => <Home />} />
               <Route path="/login" render={(props) => <Login onLogin={this.handleLogin} {...props} />} />
               <Route path="/signup" component={Signup} />
-              <PrivateRoute authenticated={this.state.isAuthenticated}  path="/new-game" component={NewGame}/>
+              <PrivateRoute authenticated={this.state.isAuthenticated}  path="/game/new" component={NewGame}/>
+              <PrivateRoute authenticated={this.state.isAuthenticated}  path="/game/list" component={NewGame}/>
             </Switch>
           </div>
     }

@@ -7,14 +7,14 @@ import javax.persistence.*;
 
 @Data
 @Entity
-@Table(name = "hint")
-public class Hint {
+@Table(name = "category")
+public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    private String name;
     @JsonIgnore
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "question_id", referencedColumnName = "id")
-    private Question question;
-    private String text;
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "game_statistic_id", referencedColumnName = "id")
+    private GameStatistic gameStatistic;
 }

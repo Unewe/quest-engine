@@ -6,11 +6,11 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Data
-//@Entity
-//@Table(name = "comment")
+@Entity
+@Table(name = "comment")
 public class Comment {
-//    @Id
-//    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private Long gameId;
     private String text;

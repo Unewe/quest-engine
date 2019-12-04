@@ -7,7 +7,7 @@ import {
     USERNAME_MIN_LENGTH, USERNAME_MAX_LENGTH,
     PASSWORD_MIN_LENGTH, PASSWORD_MAX_LENGTH
 } from '../../../constant/index';
-import {validateLength, validateEmail} from '../../../service/ValidationService'
+import {validateLength, validateEmail, validatePassword} from '../../../service/ValidationService'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCheckCircle } from "@fortawesome/free-solid-svg-icons";
 import { faExclamationCircle } from "@fortawesome/free-solid-svg-icons";
@@ -26,6 +26,9 @@ class Signup extends Component {
                 value: ''
             },
             password: {
+                value: ''
+            },
+            repeatPassword: {
                 value: ''
             }
         }
@@ -70,7 +73,8 @@ class Signup extends Component {
         return !(this.state.name.status === 'success' &&
             this.state.username.status === 'success' &&
             this.state.email.status === 'success' &&
-            this.state.password.status === 'success'
+            this.state.password.status === 'success' &&
+            this.state.repeatPassword.status === 'success'
         );
     }
 
@@ -79,7 +83,6 @@ class Signup extends Component {
         const name = e.target.name;
         const value = e.target.value;
         this.setState({[name]: {...this.state[name], value, ...validation}});
-        console.log(this.state)
     };
 
     render() {
@@ -139,7 +142,7 @@ class Signup extends Component {
                                     <label htmlFor="password">Пароль</label>
                                 </div>
                                 <div className="col-7">
-                                    <input type="text" className="form-control"
+                                    <input type="password" className="form-control"
                                            name="password"
                                            onChange={(event) => this.handleUserInput(event,
                                                 validateLength(PASSWORD_MIN_LENGTH, PASSWORD_MAX_LENGTH))}
@@ -148,13 +151,27 @@ class Signup extends Component {
                                     {this.state.password.conclusion === 'success'? success : this.state.password.conclusion === 'error' ? error : ""}
                                 </div>
                             </div>
+                            <div className="row m-2">
+                                <div className="col-5 pt-2">
+                                    <label htmlFor="password">Пароль еще раз</label>
+                                </div>
+                                <div className="col-7">
+                                    <input type="password" className="form-control"
+                                           name="repeatPassword"
+                                           onChange={(event) => this.handleUserInput(event,
+                                               validatePassword(this.state.password.value))}
+                                           onBlur={(event) => this.blurFunction(event)}
+                                           autoComplete="off"/>
+                                    {this.state.repeatPassword.conclusion === 'success'? success : this.state.repeatPassword.conclusion === 'error' ? error : ""}
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div className="container p-1">
                         <div className="row m-2">
                             <div className="col-7 offset-5">
                                 <button type="submit" className="un-button" disabled={this.isFormInvalid()}>
-                                    Зарегистрироваться
+                                    Регистрация
                                 </button>
                             </div>
                         </div>

@@ -21,19 +21,22 @@ class AppHeader extends Component {
         if (this.props.currentUser) {
             menuItems = [
                 <div key="0" className="mr-5">
-                    <Link to="/">Home</Link>
+                    <Link to="/">Главная</Link>
                 </div>,
                 <div key="1" className="mr-5">
-                    <Link to="/game/list">List</Link>
+                    <Link to="/game/new">Новая игра</Link>
+                </div>,
+                <div key="2" className="mr-5">
+                    <Link to="/game/list">Играть</Link>
                 </div>
             ];
         } else {
             menuItems = [
                 <div key="0" className="mr-5">
-                    <Link to="/login">Login</Link>
+                    <Link to="/login">Войти</Link>
                 </div>,
                 <div key="1" className="mr-5">
-                    <Link to="/signup">Signup</Link>
+                    <Link to="/signup">Зарегистрироваться</Link>
                 </div>
             ];
         }
@@ -41,7 +44,7 @@ class AppHeader extends Component {
         return (
             <div className="app-header">
                 <div className="container-fluid">
-                    <div className="row">
+                    <div className="row d-none d-md-flex">
                         <div className="col-3 text-center">
                             <Link to="/">Quest-engine</Link>
                         </div>
@@ -50,6 +53,12 @@ class AppHeader extends Component {
                         </div>
                         <div className="col-2 text-center h-item">
                             <span onClick={this.handleMenuClick}>{this.props.currentUser ? this.props.currentUser.name : ""}</span>
+                        </div>
+                    </div>
+                    {/*Телефоны планшеты*/}
+                    <div className="row d-sm-block">
+                        <div className="col-8">
+                            <Link to="/">Quest-engine</Link>
                         </div>
                     </div>
                 </div>

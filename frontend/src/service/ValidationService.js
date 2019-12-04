@@ -26,7 +26,7 @@ export let validateEmail = (email) => {
     if(!email) {
         return {
             status: 'error',
-            message: 'Введите значение'
+            message: 'Введите значение.'
         }
     }
 
@@ -34,7 +34,7 @@ export let validateEmail = (email) => {
     if(!EMAIL_REGEX.test(email)) {
         return {
             status: 'error',
-            message: 'Значение не похоже на email аддрес'
+            message: 'Значение не похоже на email аддрес.'
         }
     }
 
@@ -42,5 +42,22 @@ export let validateEmail = (email) => {
         status: 'success',
         message: null,
         conclusion: 'success'
+    }
+}
+
+export let validatePassword = (previous) => {
+    return (current) => {
+        if(previous === current) {
+            return {
+                status: 'success',
+                message: null,
+                conclusion: 'success'
+            }
+        } else {
+            return {
+                status: 'error',
+                message: 'Пароли не совпадают.'
+            }
+        }
     }
 }
