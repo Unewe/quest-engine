@@ -1,9 +1,11 @@
 package com.unewej.questengine.controller;
 
+import com.unewej.questengine.config.OrikaMapper;
 import com.unewej.questengine.model.*;
-import com.unewej.questengine.repository.GameRepository;
+import com.unewej.questengine.payload.Game;
 import com.unewej.questengine.repository.QuestionRepository;
 import com.unewej.questengine.service.GameService;
+import com.unewej.questengine.service.UserService;
 import com.unewej.questengine.seurity.CurrentUser;
 import com.unewej.questengine.seurity.UserPrincipal;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,8 +13,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.ArrayList;
@@ -28,62 +28,64 @@ public class GameController {
     @Autowired
     QuestionRepository questionRepository;
 
+    @Autowired
+    OrikaMapper orikaMapper;
+
     @GetMapping
     public ResponseEntity<?> getGames() {
-//        Game game = gameService.findById(1l).get();
-        return ResponseEntity.ok(gameService.findAll());
+        return ResponseEntity.ok(orikaMapper.mapAsList(gameService.findAll(), Game.class));
     }
 
-    @PostMapping
-    public ResponseEntity<?> createOrUpdate(@CurrentUser UserPrincipal userPrincipal, @RequestBody Game game) {
+    @GetMapping("/new")
+    public ResponseEntity<?> createOrUpdate(@CurrentUser UserPrincipal userPrincipal) {
         if (userPrincipal == null) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
-        Game newGame = new Game();
-        newGame.setName("new");
-        newGame.setDescription("new");
-        newGame.setDate(new Date());
-        newGame.setUserId(userPrincipal.getId());
+        GameEntity newGameEntity = new GameEntity();
+        newGameEntity.setName("new +");
+        newGameEntity.setDescription("new +");
+        newGameEntity.setDate(new Date());
+        newGameEntity.setUserId(userPrincipal.getId());
 
 
-        Category category = new Category();
+        CategoryEntity categoryEntity = new CategoryEntity();
 
-        GameStatistic gameStatistic = new GameStatistic();
-        gameStatistic.setGame(newGame);
-        gameStatistic.setCategory(category);
+        GameStatisticEntity gameStatistic = new GameStatisticEntity();
+        gameStatistic.setGame(newGameEntity);
+        gameStatistic.setCategory(categoryEntity);
         gameStatistic.setCountPlayed(0L);
         gameStatistic.setIsBlocked(false);
         gameStatistic.setIsPrivate(false);
         gameStatistic.setMark(0.0F);
 
-        category.setGameStatistic(gameStatistic);
-        category.setName("Test Game");
+        categoryEntity.setGameStatistic(new ArrayList<>(){{add(gameStatistic);}});
+        categoryEntity.setName("Test Game");
 
 
-        newGame.setGameStatistic(gameStatistic);
+        newGameEntity.setGameStatistic(gameStatistic);
 
 
-        Answer answer = new Answer();
-        Hint hint = new Hint();
+        AnswerEntity answerEntity = new AnswerEntity();
+        HintEntity hintEntity = new HintEntity();
 
 
-        Question question = new Question();
-        question.setGame(newGame);
-        question.setPosition(1);
-        question.setText("Test Question");
+        QuestionEntity questionEntity = new QuestionEntity();
+        questionEntity.setGame(newGameEntity);
+        questionEntity.setPosition(1);
+        questionEntity.setText("Test Question");
 
-        answer.setQuestion(question);
-        answer.setText("Test Answer");
+        answerEntity.setQuestion(questionEntity);
+        answerEntity.setText("Test Answer");
 
-        hint.setQuestion(question);
-        hint.setText("Test Hint");
+        hintEntity.setQuestion(questionEntity);
+        hintEntity.setText("Test Hint");
 
-        question.setAnswers(new ArrayList<>() {{this.add(answer);}});
-        question.setHints(new ArrayList<>(){{this.add(hint);}});
+        questionEntity.setAnswers(new ArrayList<>() {{this.add(answerEntity);}});
+        questionEntity.setHints(new ArrayList<>(){{this.add(hintEntity);}});
 
 
-        newGame.setQuestions(new ArrayList<>(){{this.add(question);}});
-        gameService.save(newGame);
-        return ResponseEntity.ok(null);
+        newGameEntity.setQuestions(new ArrayList<>(){{this.add(questionEntity);}});
+
+        return ResponseEntity.ok(gameService.save(newGameEntity));
     }
 }

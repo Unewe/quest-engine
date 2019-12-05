@@ -20,8 +20,8 @@ class App extends Component {
     super(props);
     this.state = {
       currentUser: null,
-      isAuthenticated: false,
-      isLoading: false
+      isAuthenticated: null,
+      isLoading: null
     }
     this.handleLogout = this.handleLogout.bind(this);
     this.loadCurrentUser = this.loadCurrentUser.bind(this);
@@ -42,6 +42,8 @@ class App extends Component {
           });
         }).catch(error => {
       this.setState({
+        currentUser: null,
+        isAuthenticated: false,
         isLoading: false
       });
     });

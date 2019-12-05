@@ -1,6 +1,6 @@
 package com.unewej.questengine.service;
 
-import com.unewej.questengine.model.Game;
+import com.unewej.questengine.model.GameEntity;
 import com.unewej.questengine.repository.GameRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,15 +14,15 @@ public class GameService {
     @Autowired
     GameRepository gameRepository;
 
-    public List<Game> findAll() {
+    public List<GameEntity> findAll() {
         return gameRepository.findAll();
     }
 
-    public Game save(Game game) {
-        return gameRepository.save(game);
+    public GameEntity save(GameEntity gameEntity) {
+        return gameRepository.save(gameEntity);
     }
 
-    public Optional<Game> findById(Long id) {
+    public Optional<GameEntity> findById(Long id) {
         return gameRepository.findById(id);
     }
 }

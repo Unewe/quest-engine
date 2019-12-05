@@ -33,3 +33,14 @@ export function game() {
         method: 'GET'
     });
 }
+
+export function create() {
+    if(!localStorage.getItem(ACCESS_TOKEN)) {
+        return Promise.reject("No access token set.");
+    }
+
+    return request({
+        url: API_BASE_URL + "/api/game/new",
+        method: 'GET'
+    });
+}

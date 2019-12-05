@@ -3,7 +3,7 @@ import {
     Link,
     withRouter
 } from 'react-router-dom';
-import {game} from "../../../service/GameService";
+import {create, game} from "../../../service/GameService";
 
 class NewGame extends Component{
     constructor(props) {
@@ -15,8 +15,18 @@ class NewGame extends Component{
 
     }
 
+    create = () => {
+        create().then(value => console.log(value)).catch(error => console.log(error));
+    }
+
     render() {
-        return <div onClick={this.game}><h1>Новая игра</h1></div>
+        return <div>
+            <h1>Новая игра</h1>
+            <div>
+                <button  onClick={this.game}>getGame</button>
+                <button onClick={this.create}>createGame</button>
+            </div>
+        </div>
     }
 }
 
