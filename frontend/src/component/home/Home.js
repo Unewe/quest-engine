@@ -4,10 +4,13 @@ import {
     withRouter
 } from 'react-router-dom';
 import './Home.css';
+import {gamesCount} from "../../service/GameService";
 
 class Home extends Component {
     constructor(props) {
         super(props);
+        this.state = {gamesCount: ""};
+        gamesCount().then(value => this.setState({gamesCount: value})).catch(error => console.log(error));
     }
 
     render() {
@@ -22,7 +25,7 @@ class Home extends Component {
             </div>
             <div className='row'>
                 <div className='col-6'></div>
-                <div className='col-6 games-created text-right'>Создано <span>9999</span> игр</div>
+                <div className='col-6 games-created text-right'>Создано <span>{this.state.gamesCount}</span> игр</div>
             </div>
         </div>
     }

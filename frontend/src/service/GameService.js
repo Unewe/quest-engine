@@ -56,3 +56,10 @@ export function deleteById(id) {
         method: 'DELETE',
     });
 }
+
+export function gamesCount() {
+    return request({
+        url: API_BASE_URL + "/api/game/count",
+        method: 'GET',
+    });
+}
