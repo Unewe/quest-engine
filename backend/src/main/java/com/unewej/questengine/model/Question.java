@@ -9,8 +9,7 @@ import java.util.Objects;
 
 @Data
 @Entity
-@Table(name = "question", uniqueConstraints =
-@UniqueConstraint(name = "question_game_id_position", columnNames = {"game_id", "position"}))
+@Table(name = "question")
 public class Question {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

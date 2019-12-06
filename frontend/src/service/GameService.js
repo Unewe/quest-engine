@@ -34,13 +34,25 @@ export function game() {
     });
 }
 
-export function create() {
+export function create(game) {
     if(!localStorage.getItem(ACCESS_TOKEN)) {
         return Promise.reject("No access token set.");
     }
 
     return request({
-        url: API_BASE_URL + "/api/game/new",
-        method: 'GET'
+        url: API_BASE_URL + "/api/game",
+        method: 'POST',
+        body: JSON.stringify(game)
+    });
+}
+
+export function deleteById(id) {
+    if(!localStorage.getItem(ACCESS_TOKEN)) {
+        return Promise.reject("No access token set.");
+    }
+
+    return request({
+        url: API_BASE_URL + "/api/game?id=" + id,
+        method: 'DELETE',
     });
 }

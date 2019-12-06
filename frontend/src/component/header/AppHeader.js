@@ -24,7 +24,7 @@ class AppHeader extends Component {
                     <Link to="/">Главная</Link>
                 </div>,
                 <div key="1" className="mr-5">
-                    <Link to="/game/new">Новая игра</Link>
+                    <Link to="/game/edit">Новая игра</Link>
                 </div>,
                 <div key="2" className="mr-5">
                     <Link to="/game/list">Играть</Link>
@@ -56,7 +56,7 @@ class AppHeader extends Component {
                         </div>
                     </div>
                     {/*Телефоны планшеты*/}
-                    <div className="row d-sm-block">
+                    <div className="row d-sm-block d-md-none d-lg-none d-xl-none">
                         <div className="col-8">
                             <Link to="/">Quest-engine</Link>
                         </div>

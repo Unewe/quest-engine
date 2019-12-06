@@ -25,4 +25,12 @@ public class GameService {
     public Optional<Game> findById(Long id) {
         return gameRepository.findById(id);
     }
+
+    public void deleteById(Long id) {
+        gameRepository.deleteById(id);
+    }
+
+    public Long count() {
+        return gameRepository.count();
+    }
 }

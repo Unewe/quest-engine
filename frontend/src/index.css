@@ -62,3 +62,19 @@ body {
 .red {
   color: red;
 }
+
+.grey {
+  background-color: darkgrey;
+  border: 1px dimgray solid;
+  border-radius: 5px;
+}
+
+.white {
+  background-color: white;
+  border: 1px dimgray solid;
+  border-radius: 5px;
+}
+
+.question-input {
+  width: 95%;
+}

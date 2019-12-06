@@ -3,7 +3,6 @@ package com.unewej.questengine.controller;
 import com.unewej.questengine.config.OrikaMapper;
 import com.unewej.questengine.model.*;
 import com.unewej.questengine.payload.ApiResponse;
-import com.unewej.questengine.repository.QuestionRepository;
 import com.unewej.questengine.service.GameService;
 import com.unewej.questengine.service.QuestionService;
 import com.unewej.questengine.seurity.CurrentUser;
@@ -12,12 +11,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
-import java.util.Date;
+import javax.transaction.Transactional;
 import java.util.List;
 
 @Controller
@@ -33,19 +29,32 @@ public class GameController {
     @Autowired
     OrikaMapper orikaMapper;
 
+    private String abuse = "Ублюдок, мать твою, а ну иди сюда говно собачье," +
+            " решил ко мне лезть? Ты, засранец вонючий, мать твою, а? " +
+            "Ну иди сюда, попробуй меня трахнуть, я тебя сам трахну ублюдок, " +
+            "онанист чертов, будь ты проклят, иди идиот, трахать тебя и всю семью, " +
+            "говно собачье, жлоб вонючий, дерьмо, сука, падла, иди сюда, мерзавец, " +
+            "негодяй, гад, иди сюда ты - говно, ЖОПА!";
+
     @GetMapping
     public ResponseEntity<?> getGames() {
-        List<Game> games = orikaMapper.mapAsList(gameService.findAll(), Game.class);
+        List<Game> games = gameService.findAll();
+//        games.forEach(game -> {
+//            game.setQuestions(null);
+//            game.setGameStatistic(null);
+//        });
         return ResponseEntity.ok(games);
     }
 
-    @PostMapping("/")
+    @PostMapping
+    @Transactional
     public ResponseEntity<?> createOrUpdate(@CurrentUser UserPrincipal userPrincipal, @RequestBody Game requestGame) {
         if (userPrincipal == null) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
-
-        Game game = gameService.findById(requestGame.getId()).orElse(requestGame);
+        Game game;
+        if(requestGame.getId() == null) game = requestGame;
+        else game = gameService.findById(requestGame.getId()).orElse(requestGame);
 
         if (game.getId() == null) {
             GameStatistic gameStatistic = new GameStatistic();
@@ -56,14 +65,9 @@ public class GameController {
             if (!game.getUserId().equals(userPrincipal.getId())) {
                 //Жулики могут попробовать изменить чужую игру. Оскорбляем жуликов!
                 return ResponseEntity.status(HttpStatus.CONFLICT).body(new ApiResponse(
-                        false, "Ублюдок, мать твою, а ну иди сюда говно собачье," +
-                        " решил ко мне лезть? Ты, засранец вонючий, мать твою, а? " +
-                        "Ну иди сюда, попробуй меня трахнуть, я тебя сам трахну ублюдок, " +
-                        "онанист чертов, будь ты проклят, иди идиот, трахать тебя и всю семью, " +
-                        "говно собачье, жлоб вонючий, дерьмо, сука, падла, иди сюда, мерзавец, " +
-                        "негодяй, гад, иди сюда ты - говно, ЖОПА!"));
+                        false, abuse));
             }
-            questionService.deleteByGameId(game.getId());
+            questionService.deleteAll(game.getQuestions());
             game.getQuestions().clear();
         }
         requestGame.getQuestions().forEach(question -> {
@@ -72,6 +76,30 @@ public class GameController {
             question.setGame(game);
         });
 
+        game.setName(requestGame.getName());
+        game.setDescription(requestGame.getDescription());
+        game.setCategory(requestGame.getCategory());
+        game.setQuestions(requestGame.getQuestions());
+
+        gameService.save(game);
         return ResponseEntity.ok(new ApiResponse(true, "Успешно сохранено"));
+    }
+
+    @DeleteMapping
+    public ResponseEntity deleteGame(@CurrentUser UserPrincipal userPrincipal, @RequestParam Long id) {
+        Game game = gameService.findById(id).get();
+        if (!game.getUserId().equals(userPrincipal.getId())) {
+            //Жулики могут попробовать изменить чужую игру. Оскорбляем жуликов!
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(new ApiResponse(
+                    false, abuse));
+        }
+
+        gameService.deleteById(id);
+        return ResponseEntity.ok(new ApiResponse(true, "Удалено"));
+    }
+
+    @GetMapping("/count")
+    public ResponseEntity count() {
+        return ResponseEntity.ok(gameService.count());
     }
 }

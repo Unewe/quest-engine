@@ -12,8 +12,9 @@ import Login from "./component/security/login/Login";
 import Signup from "./component/security/signup/Signup";
 import  'bootstrap-4-grid';
 import Home from "./component/home/Home";
-import NewGame from "./component/game/new/NewGame";
+import NewGame from "./component/game/edit/EditGame";
 import PrivateRoute from "./service/PrivateRoute";
+import GameList from "./component/game/list/GameList";
 
 class App extends Component {
   constructor(props) {
@@ -80,8 +81,8 @@ class App extends Component {
               <Route exact path="/" render={(props) => <Home />} />
               <Route path="/login" render={(props) => <Login onLogin={this.handleLogin} {...props} />} />
               <Route path="/signup" component={Signup} />
-              <PrivateRoute authenticated={this.state.isAuthenticated}  path="/game/new" component={NewGame}/>
-              <PrivateRoute authenticated={this.state.isAuthenticated}  path="/game/list" component={NewGame}/>
+              <PrivateRoute authenticated={this.state.isAuthenticated}  path="/game/edit" component={NewGame}/>
+              <PrivateRoute authenticated={this.state.isAuthenticated}  path="/game/list" component={GameList}/>
             </Switch>
           </div>
     }
