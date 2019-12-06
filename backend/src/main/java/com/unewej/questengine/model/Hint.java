@@ -8,24 +8,24 @@ import java.util.Objects;
 
 @Data
 @Entity
-@Table(name = "answer")
-public class AnswerEntity {
+@Table(name = "hint")
+public class Hint {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "question_id", referencedColumnName = "id")
-    private QuestionEntity question;
+    private Question question;
     private String text;
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        AnswerEntity that = (AnswerEntity) o;
-        return Objects.equals(id, that.id) &&
-                Objects.equals(text, that.text);
+        Hint hint = (Hint) o;
+        return Objects.equals(id, hint.id) &&
+                Objects.equals(text, hint.text);
     }
 
     @Override
@@ -35,7 +35,7 @@ public class AnswerEntity {
 
     @Override
     public String toString() {
-        return "AnswerEntity{" +
+        return "Hint{" +
                 "id=" + id +
                 ", text='" + text + '\'' +
                 '}';

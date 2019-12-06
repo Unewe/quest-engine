@@ -1,18 +1,18 @@
 package com.unewej.questengine.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.util.List;
+import java.util.Objects;
 
 @Data
 @Entity
-@Table(name = "comment")
-public class CommentEntity {
+@Table(name = "category")
+public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private Long gameId;
-    private String text;
-    private Date date;
+    private String name;
 }

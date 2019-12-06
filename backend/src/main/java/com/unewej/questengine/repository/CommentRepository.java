@@ -1,9 +1,9 @@
 package com.unewej.questengine.repository;
 
-import com.unewej.questengine.model.CommentEntity;
+import com.unewej.questengine.model.Comment;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface CommentRepository extends JpaRepository<CommentEntity, Long> {
+public interface CommentRepository extends JpaRepository<Comment, Long> {
 }

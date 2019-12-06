@@ -4,47 +4,39 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import javax.persistence.*;
-import java.util.List;
 import java.util.Objects;
 
 @Data
 @Entity
-@Table(name = "question")
-public class QuestionEntity {
+@Table(name = "answer")
+public class Answer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "game_id", referencedColumnName = "id")
-    private GameEntity game;
-    private Integer position;
+    @JoinColumn(name = "question_id", referencedColumnName = "id")
+    private Question question;
     private String text;
-    @OneToMany(mappedBy = "question", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<AnswerEntity> answers;
-    @OneToMany(mappedBy = "question", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<HintEntity> hints;
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        QuestionEntity that = (QuestionEntity) o;
+        Answer that = (Answer) o;
         return Objects.equals(id, that.id) &&
-                Objects.equals(position, that.position) &&
                 Objects.equals(text, that.text);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, position, text);
+        return Objects.hash(id, text);
     }
 
     @Override
     public String toString() {
-        return "QuestionEntity{" +
+        return "AnswerEntity{" +
                 "id=" + id +
-                ", position=" + position +
                 ", text='" + text + '\'' +
                 '}';
     }

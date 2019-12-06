@@ -8,6 +8,17 @@ import {create, game} from "../../../service/GameService";
 class NewGame extends Component{
     constructor(props) {
         super(props);
+        this.state = {
+            id:null,
+            name:"",
+            description:"",
+            questions:[],
+            category:"Test Game",
+            isPrivate:false,
+            isOpen: false,
+            isHidden: false,
+            startTime: null,
+        }
     }
 
     game = () => {
