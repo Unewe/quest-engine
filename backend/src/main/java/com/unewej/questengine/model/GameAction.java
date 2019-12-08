@@ -18,6 +18,6 @@ public class GameAction {
     private Long gameId;
     private Date startGame = new Date();
     private Date endGame;
-    private Integer position;
-    private Boolean terminated;
+    private Integer position = 1;
+    private Boolean terminated = false;
 }

@@ -114,12 +114,11 @@ class EditGame extends Component {
 
     render() {
         return <div>
-            <h1>Новая игра</h1>
             <div>
                 <button onClick={this.game}>getGames</button>
                 <button onClick={this.deleteGameById}>deleteGame</button>
                 <form onSubmit={this.handleSubmit}>
-                    <h1>Регистрация</h1>
+                    <h1>Создайте свою игру:</h1>
                     <div className="">
                         <div className="container">
                             <div className="row">

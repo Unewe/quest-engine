@@ -21,7 +21,7 @@ class Home extends Component {
             <div className='row'>
                 <div className='col-12'>Вы можете создать уникальную игру на день рождения,
                     корпоратив или просто в обычный день, закрытую (доступную только для друзей)
-                    или публичную. Это просто! <span className='ml-2'><Link to="/game/new">Создать игру</Link></span></div>
+                    или публичную. Это просто! <span className='ml-2'><Link to="/game/edit">Создать игру</Link></span></div>
             </div>
             <div className='row'>
                 <div className='col-6'></div>

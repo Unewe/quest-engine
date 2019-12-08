@@ -15,6 +15,7 @@ import Home from "./component/home/Home";
 import NewGame from "./component/game/edit/EditGame";
 import PrivateRoute from "./service/PrivateRoute";
 import GameList from "./component/game/list/GameList";
+import GameAction from "./component/game/action/GameAction";
 
 class App extends Component {
   constructor(props) {
@@ -83,6 +84,7 @@ class App extends Component {
               <Route path="/signup" component={Signup} />
               <PrivateRoute authenticated={this.state.isAuthenticated}  path="/game/edit" component={NewGame}/>
               <PrivateRoute authenticated={this.state.isAuthenticated}  path="/game/list" component={GameList}/>
+              <PrivateRoute authenticated={this.state.isAuthenticated}  path="/game/action/:id" component={GameAction}/>
             </Switch>
           </div>
     }

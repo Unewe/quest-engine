@@ -20,7 +20,7 @@ export let validateLength = (minLength, maxLength) => {
             };
         }
     }
-}
+};
 
 export let validateEmail = (email) => {
     if(!email) {

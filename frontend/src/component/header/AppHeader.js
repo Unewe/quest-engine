@@ -27,7 +27,7 @@ class AppHeader extends Component {
                     <Link to="/game/edit">Новая игра</Link>
                 </div>,
                 <div key="2" className="mr-5">
-                    <Link to="/game/list">Играть</Link>
+                    <Link to="/game/list">Список игр</Link>
                 </div>
             ];
         } else {
